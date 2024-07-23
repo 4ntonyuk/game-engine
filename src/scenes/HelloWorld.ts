@@ -1,12 +1,15 @@
-class HelloWorld {
-  private _name: string;
+import { Scene } from "../core";
+import type { Controls, GameScreen } from "../core";
 
-  constructor(name: string) {
-    this._name = name;
+class HelloWorld extends Scene{
+
+  constructor(screen: GameScreen, controls: Controls) {
+    super(screen, controls);
   }
 
   public render(time: number): string {
-    console.log(`hello world by ${this._name}`);
+    this._ctx?.rect(30, 30, 100, 100);
+    this._ctx?.fill()
 
     return "hello-world"
   }

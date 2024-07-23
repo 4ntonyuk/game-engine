@@ -2,13 +2,13 @@ class GameScreen {
   private _canvas: HTMLCanvasElement;
   private _w: number;
   private _h: number;
-  private _imgs: Object;
+  public imgs: {};
 
-  constructor(canvas: HTMLCanvasElement, w: number, h: number, imgs: Object) {
+  constructor(canvas: HTMLCanvasElement, w: number, h: number, imgs: {}) {
     this._canvas = canvas;
     this._w = w;
     this._h = h;
-    this._imgs = imgs;
+    this.imgs = imgs;
 
     this._canvas.width = this._w;
     this._canvas.height = this._h;
@@ -16,14 +16,6 @@ class GameScreen {
 
   public get canvas() {
     return this._canvas;
-  }
-  
-  public get imgs() {
-    return this._imgs;
-  }
-
-  public set imgs(value) {
-    this._imgs = value;
   }
 }
 

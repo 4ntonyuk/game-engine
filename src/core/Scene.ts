@@ -4,7 +4,7 @@ class Scene {
   private _canvas: HTMLCanvasElement;
   protected _ctx: CanvasRenderingContext2D | null;
   protected _controls: Controls;
-  protected _imgs: Object
+  protected _imgs: {}
 
   constructor(screen: GameScreen, controls: Controls) {
     this._canvas = screen.canvas;

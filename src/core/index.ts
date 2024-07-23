@@ -4,6 +4,7 @@ import GameScreen from "./GameScreen";
 import Controls from "./Controls";
 import Loop from "./Loop";
 import Camera from "./Camera";
+import Sound from "./Sound";
 
 export {
   Core,
@@ -11,5 +12,6 @@ export {
   GameScreen,
   Controls,
   Loop,
-  Camera
+  Camera,
+  Sound
 }

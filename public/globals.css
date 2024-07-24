@@ -16,7 +16,5 @@ body {
 canvas#root {
   width: 100vw;
   height: 100vh;
-  border: 1px solid #000;
-  border-radius: 25px;
-  background: var(--gray-color);
+  background: rgba(90, 248, 253, 0.3843137255);
 }

@@ -9,5 +9,11 @@ export default {
       '@snowpack/plugin-typescript',
       "@snowpack/plugin-sass"
     ],
-  ]
+  ],
+  alias: {
+    "@": "./src", 
+    "@core": "./src/core",
+    "@objects": "./src/objects",
+    "@scenes": "./src/scenes",
+  }
 };

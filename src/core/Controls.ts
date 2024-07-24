@@ -37,7 +37,7 @@ class Controls {
   }
 
   private clickHandler(e: MouseEvent): void {
-
+    // ляляля мышкой нажал ыыыы
   }
 
   private mouseMoveHandler(e: MouseEvent): void {

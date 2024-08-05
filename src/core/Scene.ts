@@ -1,30 +1,27 @@
 import type { GameScreen, Controls } from "./";
 
 class Scene {
-  private _canvas: HTMLCanvasElement;
-  private _ratio: number;
+  protected _canvas: HTMLCanvasElement;
   protected _ctx: CanvasRenderingContext2D | null;
   protected _controls: Controls;
-  protected _imgs: {}
+  protected _imgs: {[name: string]: HTMLImageElement};
+  private _scaleX: number;
+  private _scaleY: number;
 
   constructor(screen: GameScreen, controls: Controls) {
     this._canvas = screen.canvas;
-    this._ratio = screen.ratio;
     this._ctx = this._canvas.getContext("2d");
     this._imgs = screen.imgs;
     this._controls = controls;
-
+    this._scaleX = this._canvas.width / screen.width;
+    this._scaleY = this._canvas.height / screen.height;
+    
+    this.resizeCanvas;
     window.addEventListener("resize", this.resizeCanvas);
   }
 
-  private resizeCanvas():void {
-    if (window.innerWidth / window.innerHeight > this._ratio) {
-      this._canvas.height = window.innerHeight;
-      this._canvas.width = window.innerHeight * this._ratio;
-    } else {
-      this._canvas.width = window.innerWidth;
-      this._canvas.height = window.innerWidth / this._ratio;
-    }
+  private resizeCanvas() {
+    this._ctx?.scale(this._scaleX, this._scaleY);
   }
 }
 

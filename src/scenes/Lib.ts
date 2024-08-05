@@ -1,5 +1,5 @@
-import { Scene } from "../core";
-import type { GameScreen, Controls } from "../core";
+import { Scene } from "@/core";
+import type { GameScreen, Controls } from "@/core";
 
 class Lib extends Scene {
   private _assets: [ {name: string, path: string} ];

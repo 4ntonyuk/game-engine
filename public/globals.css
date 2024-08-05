@@ -4,27 +4,6 @@
   --gray-color: #ccc;
 }
 
-*, *::after, *::before {
-  box-sizing: inherit;
-}
-
-html {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: var(--black-color);
-  color: var(--white-color);
-}
-
-canvas#root {
-  margin: 0;
-  padding: 0;
-  background: rgba(90, 248, 253, 0.3843137255);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

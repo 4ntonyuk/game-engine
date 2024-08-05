@@ -1,5 +1,5 @@
-import { Scene } from "../core";
-import type { GameScreen, Controls } from "../core";
+import { Scene } from "@/core";
+import type { GameScreen, Controls } from "@/core";
 
 class HelloWorld extends Scene {
   constructor(screen: GameScreen, controls: Controls) {

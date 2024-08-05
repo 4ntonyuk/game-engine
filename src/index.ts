@@ -1,17 +1,13 @@
+import "../public/globals.css";
+
 import { Core, Controls, GameScreen } from "./core";
 import { HelloWorld, Lib } from "./scenes";
-
-const {
-  ASD
-} = process.env;
-
-console.log(ASD)
 
 const canvas = document.createElement("canvas");
 canvas.id = "root";
 document.body.appendChild(canvas);
 
-const screen = new GameScreen(canvas, 1366, 768);
+const screen = new GameScreen(canvas, window.innerWidth, window.innerHeight);
 const controls = new Controls;
 
 const core = new Core;

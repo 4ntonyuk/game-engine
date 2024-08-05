@@ -1,6 +1,12 @@
 import { Core, Controls, GameScreen } from "./core";
 import { HelloWorld, Lib } from "./scenes";
 
+const {
+  ASD
+} = process.env;
+
+console.log(ASD)
+
 const canvas = document.createElement("canvas");
 canvas.id = "root";
 document.body.appendChild(canvas);

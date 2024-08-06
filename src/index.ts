@@ -1,13 +1,13 @@
-import "../public/globals.css";
+import "~/public/globals.css";
 
-import { Core, Controls, GameScreen } from "./core";
-import { HelloWorld, Lib } from "./scenes";
+import { Core, Controls, GameScreen } from "@/core";
+import { HelloWorld, Lib } from "@/scenes";
 
 const canvas = document.createElement("canvas");
 canvas.id = "root";
 document.body.appendChild(canvas);
 
-const screen = new GameScreen(canvas, window.innerWidth, window.innerHeight);
+const screen = new GameScreen(canvas, 1536, 864);
 const controls = new Controls;
 
 const core = new Core;

@@ -35,7 +35,7 @@ class Lib extends Scene {
         this._loadedAt = time;
       }
 
-      this._ctx?.drawImage(this._imgs["test"], 0, 0);
+      this._ctx.drawImage(this._imgs["test"], 0, 0);
 
       return "lib";
     }

@@ -7,3 +7,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+canvas#root {
+  @apply bg-white;
+}

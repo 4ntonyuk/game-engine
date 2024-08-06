@@ -1,4 +1,4 @@
-import { Loop } from "./";
+import { Loop } from "@/core";
 
 class Core {
   public scenes: any;

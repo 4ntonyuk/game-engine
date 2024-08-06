@@ -7,8 +7,8 @@ class HelloWorld extends Scene {
   }
 
   public render(time: number): string {
-    this._ctx?.rect(30, 30, 100, 100);
-    this._ctx?.fill()
+    this._ctx.rect(30, 30, 100, 100);
+    this._ctx.fill()
     return "hello-world"
   }
 }

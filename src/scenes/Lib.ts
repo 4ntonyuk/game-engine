@@ -8,8 +8,8 @@ class Lib extends Scene {
   private _loadedAt: number;
   private _status: string;
 
-  constructor(screen: GameScreen, controls: Controls) {
-    super(screen, controls);
+  constructor(screen: GameScreen) {
+    super(screen);
 
     this._assets = [
       {name: "test", path: "/assets/imgs/test.jpg"},

@@ -12,8 +12,9 @@ const controls = new Controls;
 
 const core = new Core;
 core.scenes = {
-  "lib": new Lib(screen, controls),
+  "lib": new Lib(screen),
   "hello-world": new HelloWorld(screen, controls),
 };
+
 core.currentScene = "lib";
 core.start();

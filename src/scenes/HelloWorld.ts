@@ -10,11 +10,11 @@ class HelloWorld extends Scene {
   public render(time: number): string {
     const button = new Button(this._screen, {
       x: 100, y: 100, 
-      width: 170, height: 100, 
-      // padding: "10 20",
-      color: "purple", 
-      border: 5, borderColor: "#e1e1e1",
-      // radius: 10
+      width: "auto", height: "auto", 
+      padding: "20 25",
+      color: "#1d1d1d", 
+      border: 0, borderColor: "#e1e1e1",
+      radius: 5
     });
     button.text({
       label: "Hello world!",
@@ -22,6 +22,9 @@ class HelloWorld extends Scene {
       fontFamily: "Arial",
       fontSize: "20px"
     });
+    button.click(() => {
+      console.log("Hello-world start!")
+    })
 
     return "hello-world"
   }

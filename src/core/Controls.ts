@@ -1,7 +1,16 @@
 class Controls {
   private _codes: { [key: string]: string } = {};
   private _states: { [key: string]: boolean } = {};
-  private _mouseCoord: { x: number; y: number } = { x: 0, y: 0 };
+  public mouseCoord: { x: number; y: number } = { x: 0, y: 0 };
+  public methods: [
+    {
+      callback: Callback, 
+      top: boolean,
+      left: boolean,
+      right: boolean,
+      bottom: boolean,
+    }
+  ];
   public sounds: {};
 
   constructor() {
@@ -37,14 +46,19 @@ class Controls {
   }
 
   private clickHandler(e: MouseEvent): void {
-    // ляляля мышкой нажал ыыыы
+    this.methods.forEach((element) => {
+      if (element.top && element.left && element.right && element.bottom) {
+        element.callback();
+      }
+    });
+    console.log(this.methods)
   }
 
   private mouseMoveHandler(e: MouseEvent): void {
-    this._mouseCoord.x = e.clientX;
-    this._mouseCoord.y = e.clientY;
+    this.mouseCoord.x = e.clientX;
+    this.mouseCoord.y = e.clientY;
 
-    console.log(this._mouseCoord);
+    // console.log(this._mouseCoord);
   }
 }
 

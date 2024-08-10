@@ -1,7 +1,8 @@
-import { Scene } from "@/core";
+import { Scene, Controls } from "@/core";
+import { setRadius, setPadding } from "@/types/declarations";
 import type { GameScreen } from "@/core";
+import type { Radius, Padding } from "@/types/ui";
 
-type Radius = number & {__limited: "LIMITED"};
 // type Padding = string;
 
 class Button extends Scene {
@@ -9,11 +10,13 @@ class Button extends Scene {
   public y: number;
   public width: number | "auto";
   public height: number | "auto";
-  // public padding: Padding;
-  public radius: number;
+  private _childeWidth: number = 0;
+  private _childeHeight: number = 0;
+  public padding: Padding;
+  public radius: Radius;
   public label: string;
   public color: string;
-  public border: number;
+  public border: number = 0;
   public borderColor: string;
   private _textMetrics: TextMetrics;
 
@@ -22,42 +25,46 @@ class Button extends Scene {
     y: number, 
     width: number | "auto", 
     height: number | "auto", 
-    // padding?: Padding;
+    padding?: string;
     radius?: number, 
     color: string, 
     border?: number, 
     borderColor?: string,
   }) {
     super(screen);
-    const { x, y, width, height, radius, color, border, borderColor } = params;
+    const { x, y, width, height, padding, radius, color, border, borderColor } = params;
 
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    // this.padding = this.setPadding(padding);
-    this.radius = this.setRadius(radius) | 0;
+    this.padding = setPadding(padding);
+    this.radius = setRadius(radius);
     this.color = color;
-    this.border = border | 0;
+    this.border = border;
     this.borderColor = borderColor;
   }
 
-  // private setPadding(value: string): Padding {
-  //   if (value === undefined) return;
-  //   const paddingArray = value.split(" ");
-  //   // if (typeof paddingArray[0] || typeof paddingArray)
-  //   if (paddingArray.length !== 2) {
-  //     throw new Error(`"Padding" must accept 2 parameters`);
-  //   }
-  //   return value as Padding;
-  // }
+  public click(callback: Callback) {
+    const width = (this.width !== "auto") ? this.width : this._childeWidth;
+    const height = (this.height !== "auto") ? this.height : this._childeHeight;
 
-  private setRadius(value: number): Radius {
-    const max = 35;
-    if (value > max) {
-      throw new Error(`Radius cannot be greater than ${max}`);
+    const controls = new Controls;
+    const { x, y } = controls.mouseCoord;
+
+    const top = this.y <= y;
+    const left = this.x <= x;
+    const right = this.x + width >= x;
+    const bottom = this.y + height >= y;
+
+    const button = { 
+      callback: callback,
+      top: top,
+      left: left,
+      right: right,
+      bottom: bottom
     }
-    return value as Radius;
+    controls.methods.push(button);
   }
 
   private drawRadius(width: number, height: number) {
@@ -85,8 +92,6 @@ class Button extends Scene {
   }
 
   private renderButton(width: number, height: number) {
-    // const paddingArray = this.padding.split(" ");
-
     this.drawRadius(width, height);
     this._ctx.fill();
 
@@ -110,13 +115,16 @@ class Button extends Scene {
     const textWidth = this._textMetrics.width;
     const textHeight = this._textMetrics.actualBoundingBoxAscent + this._textMetrics.actualBoundingBoxDescent;
 
+    this._childeWidth = textWidth;
+    this._childeHeight = textHeight;
+
     // если ширина "авто", то шириной кнопки становится ширина текста, который находится в ней + учет внутренних отступов
-    // this.width = ((this.width !== "auto") ? this.width : textWidth) + Number(this.padding?.split(" ")[1]) * 2;
-    // this.height = ((this.height !== "auto") ? this.height : textHeight) +  + Number(this.padding?.split(" ")[0]) * 2;
-    this.width = ((this.width !== "auto") ? this.width : textWidth)
-    this.height = ((this.height !== "auto") ? this.height : textHeight)
+    this.width = ((this.width !== "auto") ? this.width : textWidth) + Number(this.padding?.split(" ")[1]) * 2;
+    this.height = ((this.height !== "auto") ? this.height : textHeight) +  + Number(this.padding?.split(" ")[0]) * 2;
+    // this.width = ((this.width !== "auto") ? this.width : textWidth)
+    // this.height = ((this.height !== "auto") ? this.height : textHeight)
     const textX = this.x + this.width / 2 - textWidth / 2;
-    const offset = (this.height === textHeight) ? 0 : textHeight / 9;
+    const offset = (this.height === textHeight) ? 0 : textHeight / 10;
     const textY = this.y + this.height / 2 + textHeight / 2 - offset;
 
     

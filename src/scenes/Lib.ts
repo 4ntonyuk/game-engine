@@ -32,7 +32,7 @@ class Lib extends Scene {
     if (this._status === "loading") {
       if (this._loaded === this._total) {
         this._status = "loaded";
-        this._loadedAt = time;
+        this._loadedAt = performance.now();
       }
 
       this._ctx.drawImage(this._imgs["test"], 0, 0);

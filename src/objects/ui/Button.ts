@@ -1,11 +1,12 @@
-import { Scene, Controls } from "@/core";
-import { setRadius, setPadding } from "@/types/declarations";
-import type { GameScreen } from "@/core";
+
+import type { Controls } from "@/core";
 import type { Radius, Padding } from "@/types/ui";
+import { setRadius, setPadding } from "@/types/declarations";
+import { once1 } from "@/data/lib/utils";
 
-// type Padding = string;
-
-class Button extends Scene {
+class Button {
+  private _controls: Controls;
+  private _ctx: CanvasRenderingContext2D;
   public x: number;
   public y: number;
   public width: number | "auto";
@@ -20,7 +21,7 @@ class Button extends Scene {
   public borderColor: string;
   private _textMetrics: TextMetrics;
 
-  constructor(screen: GameScreen, params: {
+  constructor(ctx: CanvasRenderingContext2D, controls: Controls, params: {
     x: number, 
     y: number, 
     width: number | "auto", 
@@ -31,9 +32,9 @@ class Button extends Scene {
     border?: number, 
     borderColor?: string,
   }) {
-    super(screen);
     const { x, y, width, height, padding, radius, color, border, borderColor } = params;
-
+    this._ctx = ctx;
+    this._controls = controls;
     this.x = x;
     this.y = y;
     this.width = width;
@@ -48,23 +49,15 @@ class Button extends Scene {
   public click(callback: Callback) {
     const width = (this.width !== "auto") ? this.width : this._childeWidth;
     const height = (this.height !== "auto") ? this.height : this._childeHeight;
-
-    const controls = new Controls;
-    const { x, y } = controls.mouseCoord;
-
-    const top = this.y <= y;
-    const left = this.x <= x;
-    const right = this.x + width >= x;
-    const bottom = this.y + height >= y;
-
-    const button = { 
+    
+    this._controls.addButton({
+      x: this.x,
+      y: this.y,
+      width: width,
+      height: height,
       callback: callback,
-      top: top,
-      left: left,
-      right: right,
-      bottom: bottom
-    }
-    controls.methods.push(button);
+    });
+
   }
 
   private drawRadius(width: number, height: number) {
@@ -100,8 +93,6 @@ class Button extends Scene {
       this._ctx.strokeStyle = this.borderColor;
       this._ctx.stroke()
     }
-
-    this._ctx.restore();
   }
 
   public text(params: {
@@ -112,22 +103,18 @@ class Button extends Scene {
     this._ctx.font = `${fontSize} ${fontFamily}`;
     this._textMetrics = this._ctx.measureText(label);
 
-    const textWidth = this._textMetrics.width;
-    const textHeight = this._textMetrics.actualBoundingBoxAscent + this._textMetrics.actualBoundingBoxDescent;
-
-    this._childeWidth = textWidth;
-    this._childeHeight = textHeight;
+    this._childeWidth = this._textMetrics.width;
+    this._childeHeight = this._textMetrics.actualBoundingBoxAscent + this._textMetrics.actualBoundingBoxDescent;
 
     // если ширина "авто", то шириной кнопки становится ширина текста, который находится в ней + учет внутренних отступов
-    this.width = ((this.width !== "auto") ? this.width : textWidth) + Number(this.padding?.split(" ")[1]) * 2;
-    this.height = ((this.height !== "auto") ? this.height : textHeight) +  + Number(this.padding?.split(" ")[0]) * 2;
-    // this.width = ((this.width !== "auto") ? this.width : textWidth)
-    // this.height = ((this.height !== "auto") ? this.height : textHeight)
-    const textX = this.x + this.width / 2 - textWidth / 2;
-    const offset = (this.height === textHeight) ? 0 : textHeight / 10;
-    const textY = this.y + this.height / 2 + textHeight / 2 - offset;
-
+    this.width = ((this.width !== "auto") ? this.width : this._childeWidth) + Number(this.padding?.split(" ")[1]) * 2;
+    this.height = ((this.height !== "auto") ? this.height : this._childeHeight) +  + Number(this.padding?.split(" ")[0]) * 2;
     
+    const textX = this.x + this.width / 2 - this._childeWidth / 2;
+    // отступ, чтобы текст был по центру относительно y
+    const offset = (this.height === this._childeHeight) ? 0 : this._childeHeight / 10;
+    const textY = this.y + this.height / 2 + this._childeHeight / 2 - offset;
+
     this.renderButton(this.width, this.height);
     this._ctx.fillStyle = labelColor;
     this._ctx.lineWidth = 0;

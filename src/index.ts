@@ -8,7 +8,7 @@ canvas.id = "root";
 document.body.appendChild(canvas);
 
 const screen = new GameScreen(canvas, 1536, 864);
-const controls = new Controls;
+const controls = new Controls(canvas);
 
 const core = new Core;
 core.scenes = {

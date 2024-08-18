@@ -12,13 +12,3 @@ export const once = (fn: Function) => {
     }
   }
 }
-
-export const once1 = (fn: () => Promise<void>) => {
-  let promise: Promise<void> | null = null;
-  return () => {
-    if (!promise) {
-      promise = fn();
-    }
-    return promise;
-  }
-}

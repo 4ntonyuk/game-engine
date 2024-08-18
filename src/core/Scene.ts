@@ -14,6 +14,11 @@ class Scene {
     this._imgs = screen.imgs;
     this._controls = controls;
   }
+
+  public clearScene(color: string = "#fff") {
+    this._ctx.fillStyle = color;
+    this._ctx.fillRect(0, 0, this._canvas.width, this._canvas.height)
+  }
 }
 
 export default Scene;

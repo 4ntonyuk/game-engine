@@ -1,8 +1,9 @@
 import { Scene } from "@/core";
 import type { GameScreen, Controls } from "@/core";
+import { TextBox } from "@/objects/ui";
 
 class Lib extends Scene {
-  private _assets: [ {name: string, path: string} ];
+  private _assets:  {name: string, path: string}[] = [];
   private _total: number;
   private _loaded: number;
   private _loadedAt: number;
@@ -13,6 +14,7 @@ class Lib extends Scene {
 
     this._assets = [
       {name: "test", path: "/assets/imgs/test.jpg"},
+      {name: "skeleton", path: "/assets/sprites/skeleton.png"},
     ];
 
     this._total = this._assets.length;
@@ -34,9 +36,8 @@ class Lib extends Scene {
         this._status = "loaded";
         this._loadedAt = performance.now();
       }
-
-      this._ctx.drawImage(this._imgs["test"], 0, 0);
-
+      
+      this.loadingScreen();
       return "lib";
     }
 
@@ -47,6 +48,19 @@ class Lib extends Scene {
         return "lib"
       }
     }
+  }
+
+  private loadingScreen() {
+    this.clearScene();
+    const loadingText = new TextBox(this._ctx, this._canvas, {
+      x: 500, y: 100,
+      label: `Loading ${this._loaded}/${this._total}`,
+      labelColor: "red",
+      fontFamily: "Arial",
+      fontSize: "70px",
+      align: "center",
+      baseline: "center"
+    });
   }
 }
 

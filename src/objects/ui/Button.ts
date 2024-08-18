@@ -1,8 +1,6 @@
-
 import type { Controls } from "@/core";
 import type { Radius, Padding } from "@/types/ui";
 import { setRadius, setPadding } from "@/types/declarations";
-import { once1 } from "@/data/lib/utils";
 
 class Button {
   private _controls: Controls;
@@ -16,9 +14,9 @@ class Button {
   public padding: Padding;
   public radius: Radius;
   public label: string;
-  public color: string;
+  public color: string | "transparent";
   public border: number = 0;
-  public borderColor: string;
+  public borderColor: string | "transparent";
   private _textMetrics: TextMetrics;
 
   constructor(ctx: CanvasRenderingContext2D, controls: Controls, params: {
@@ -44,12 +42,18 @@ class Button {
     this.color = color;
     this.border = border;
     this.borderColor = borderColor;
+
+    this._ctx.reset()
   }
 
+  ////////
+  /////
+  // не работает нормально клик на кнопку, метод вызывается несколько раз, нужно исправить
+  /////
+  ////////
   public click(callback: Callback) {
     const width = (this.width !== "auto") ? this.width : this._childeWidth;
     const height = (this.height !== "auto") ? this.height : this._childeHeight;
-    
     this._controls.addButton({
       x: this.x,
       y: this.y,
@@ -57,11 +61,9 @@ class Button {
       height: height,
       callback: callback,
     });
-
   }
 
   private drawRadius(width: number, height: number) {
-    this._ctx.fillStyle = this.color;
     this._ctx.beginPath();  
     // левый верхний угол
     this._ctx.moveTo(this.x + this.radius, this.y);
@@ -85,12 +87,15 @@ class Button {
   }
 
   private renderButton(width: number, height: number) {
+    this._ctx.fillStyle = this.color;
     this.drawRadius(width, height);
-    this._ctx.fill();
+    if (this.color !== "transparent") {
+      this._ctx.fill();
+    }
 
-    if (this.border > 0) {
+    this._ctx.strokeStyle = this.borderColor;
+    if (this.border > 0 && this.borderColor !== "transparent") {
       this._ctx.lineWidth = this.border;
-      this._ctx.strokeStyle = this.borderColor;
       this._ctx.stroke()
     }
   }
@@ -99,7 +104,7 @@ class Button {
     label: string, labelColor?: string, fontFamily: string, fontSize: string, markdown?: string
   }) {
     const { label, labelColor, fontFamily, fontSize, markdown } = params;
-    
+
     this._ctx.font = `${fontSize} ${fontFamily}`;
     this._textMetrics = this._ctx.measureText(label);
 

@@ -1,7 +1,7 @@
 import "~/public/globals.css";
 
 import { Core, Controls, GameScreen } from "@/core";
-import { HelloWorld, Lib } from "@/scenes";
+import { HelloWorld, Lib, Menu } from "@/scenes";
 
 const canvas = document.createElement("canvas");
 canvas.id = "root";
@@ -13,6 +13,7 @@ const controls = new Controls(canvas);
 const core = new Core;
 core.scenes = {
   "lib": new Lib(screen),
+  "menu": new Menu(screen, controls),
   "hello-world": new HelloWorld(screen, controls),
 };
 core.currentScene = "lib";

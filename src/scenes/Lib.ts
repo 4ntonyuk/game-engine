@@ -44,7 +44,7 @@ class Lib extends Scene {
 
     if (this._status === "loaded") {
       if ((time - this._loadedAt) > 1000) {
-        return "hello-world"
+        return "menu"
       } else {
         return "lib"
       }

@@ -24,7 +24,6 @@ class HelloWorld extends Scene {
       width: "auto", height: "auto", 
       padding: "20 25",
       color: "#1d1d1d", 
-      // border: 0,
       radius: 5,
     });
     button.text({

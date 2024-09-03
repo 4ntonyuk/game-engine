@@ -7,9 +7,8 @@ class HelloWorld extends Scene {
   private _buttons: { [name: string]: Button } = {};
   constructor(screen: GameScreen, controls: Controls) {
     super(screen, controls);
-
   }
-
+  
   public render(time: number): string {
     this.clearScene();
 
@@ -20,7 +19,6 @@ class HelloWorld extends Scene {
       align: "center", baseline: "center",
     });
 
-
     const button = new Button(this._ctx, this._controls, {
       x: 100, y: 100, 
       width: "auto", height: "auto", 
@@ -29,7 +27,6 @@ class HelloWorld extends Scene {
       // border: 0,
       radius: 5,
     });
-
     button.text({
       label: "Hello world!",
       labelColor: "#e1e1e1",
@@ -37,10 +34,25 @@ class HelloWorld extends Scene {
       fontSize: "70px"
     });
     button.click(once(() => {
-      console.log(123)
-    }))
-
+      console.log("123");
+    }));
     
+    const button1 = new Button(this._ctx, this._controls, {
+      x: 400, y: 400, 
+      width: "auto", height: "auto", 
+      padding: "20 25",
+      color: "#1d1d1d", 
+      radius: 5,
+    });
+    button1.image({
+      img: this._imgs["tree"],
+      width: 200,
+      height: 300,
+    });
+    button1.click(once(() => {
+      console.log("123");
+    }));
+  
     return "hello-world"
   }
 }

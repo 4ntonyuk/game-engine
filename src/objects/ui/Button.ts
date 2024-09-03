@@ -124,8 +124,28 @@ class Button {
     this._ctx.fillText(label, textX, textY);
   }
 
-  public image(label: HTMLImageElement) {
+  public image(props: {
+    img: HTMLImageElement,
+    width: number,
+    height: number,
+  }) {
+    const { img, width, height } = props;
 
+    this._childeWidth = width;
+    this._childeHeight = height;
+    
+    if (this.width !== "auto") {
+      this.width = (this.width > this._childeWidth) ? this.width : this._childeWidth;
+    } else {
+      this.width = this._childeWidth;
+    }
+    if (this.height !== "auto") {
+      this.height = (this.height < this._childeHeight) ? this.height : this._childeHeight;
+    } else {
+      this.height = this._childeHeight;
+    }
+
+    this._ctx.drawImage(img, this.x, this.y, this.width, this.height);
   }
 }
 

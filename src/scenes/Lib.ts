@@ -14,6 +14,7 @@ class Lib extends Scene {
 
     this._assets = [
       {name: "test", path: "/assets/imgs/test.jpg"},
+      {name: "tree", path: "/assets/imgs/tree.jpg"},
       {name: "skeleton", path: "/assets/sprites/skeleton.png"},
     ];
 

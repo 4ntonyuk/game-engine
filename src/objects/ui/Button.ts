@@ -42,8 +42,6 @@ class Button {
     this.color = color;
     this.border = border;
     this.borderColor = borderColor;
-
-    this._ctx.reset()
   }
 
   ////////

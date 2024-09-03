@@ -1,5 +1,5 @@
 import { Scene } from "@/core";
-import { Button } from "@/objects/ui";
+import { Button, TextBox } from "@/objects/ui";
 import type { GameScreen, Controls } from "@/core";
 import { once } from "@/data/lib/utils";
 
@@ -12,23 +12,35 @@ class HelloWorld extends Scene {
 
   public render(time: number): string {
     this.clearScene();
-    this._buttons["hwbutton"] = new Button(this._ctx, this._controls, {
+
+    const text = new TextBox(this._ctx, this._canvas, {
+      x: 400, y: 300,
+      label: "lalala", labelColor: "red",
+      fontFamily: "Arial", fontSize: "20px",
+      align: "center", baseline: "center",
+    });
+
+
+    const button = new Button(this._ctx, this._controls, {
       x: 100, y: 100, 
       width: "auto", height: "auto", 
       padding: "20 25",
-      color: "transparent", 
-      border: 0, borderColor: "#e1e1e1",
+      color: "#1d1d1d", 
+      // border: 0,
       radius: 5,
     });
-    this._buttons["hwbutton"].text({
+
+    button.text({
       label: "Hello world!",
-      labelColor: "black",
+      labelColor: "#e1e1e1",
       fontFamily: "Arial",
       fontSize: "70px"
     });
-    this._buttons["hwbutton"].click(once(() => {
+    button.click(once(() => {
       console.log(123)
     }))
+
+    
     return "hello-world"
   }
 }

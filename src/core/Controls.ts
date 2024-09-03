@@ -76,8 +76,8 @@ class Controls {
 
   private updateMouseCoords(e: MouseEvent): void {
     const rect = this._canvas.getBoundingClientRect();
-    this._mouseCoord.x = e.clientX - rect.left;
     this._mouseCoord.y = e.clientY - rect.top;
+    this._mouseCoord.x = e.clientX - rect.left;
   }
 
 }

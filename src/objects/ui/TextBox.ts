@@ -35,8 +35,7 @@ class TextBox {
     this.fontSize = fontSize;
     this.align = align;
     this.baseline = baseline;
-
-    this._ctx.reset()
+    
     this._ctx.fillStyle = labelColor;
     this._ctx.lineWidth = 0;
     this._ctx.font = `${fontSize} ${fontFamily}`;
